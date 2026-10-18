@@ -199,7 +199,7 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;resize:vertical;font:
 #toast.on{opacity:1}
 
 /* ---------- stories (Le Jeu) ---------- */
-#stories{position:absolute;inset:0;z-index:15;background:radial-gradient(ellipse at 50% 0%,#3a0824 0%,#12020c 55%,#07020c 100%);display:flex;flex-direction:column;animation:fade .35s}
+#stories{position:absolute;inset:0;z-index:15;background:linear-gradient(180deg,rgba(7,2,12,.78) 0%,rgba(18,2,14,.86) 45%,rgba(7,2,12,.95) 100%),url(img/bg.webp) center/cover,#07020c;display:flex;flex-direction:column;animation:fade .35s}
 .bars{display:flex;gap:4px;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 0}
 .bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.22);overflow:hidden}
 .bars i b{display:block;height:100%;width:0;background:var(--ice);box-shadow:0 0 8px var(--neon);transition:width .35s}
@@ -219,6 +219,18 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;resize:vertical;font:
 .step strong{font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:15px}
 .step span{font-size:14px;color:var(--mist);line-height:1.45}
 .callout{padding:14px 16px;border-radius:16px;background:rgba(255,46,136,.16);border:1px solid var(--neon-soft);font-size:15px;line-height:1.5}
+.refs2{display:flex;flex-direction:column;gap:16px}
+.ref{padding:14px;border-radius:18px;background:rgba(30,4,22,.72);border:1px solid rgba(255,122,184,.35);box-shadow:0 0 22px rgba(255,46,136,.15);display:flex;flex-direction:column;gap:8px}
+.ref h3{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-style:italic;font-weight:900;font-size:17px;text-transform:uppercase;letter-spacing:.02em;text-shadow:0 0 12px rgba(255,46,136,.6)}
+.ref p{margin:0;font-size:14px;color:var(--mist);line-height:1.45}
+.refPics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:4px}
+.refPics figure{margin:0;position:relative;border-radius:12px;overflow:hidden;border:2px solid var(--neon-soft);box-shadow:0 0 16px rgba(255,46,136,.45)}
+.refPics figure:nth-child(odd){transform:rotate(-1.5deg)}.refPics figure:nth-child(even){transform:rotate(1.5deg)}
+.refPics figure.wide{grid-column:span 2;transform:rotate(-.8deg)}
+.refPics img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%}
+.refPics figure:only-child:not(.wide){grid-column:span 2;width:62%;justify-self:center}
+.refPics .wide img{aspect-ratio:3/2;object-position:50% 35%}
+.refPics figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 6px;background:linear-gradient(transparent,rgba(7,2,12,.9));font-family:var(--f-display);font-weight:800;font-style:italic;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
 .refs{display:flex;flex-direction:column;gap:8px}
 .refs div{padding:10px 14px;border-radius:14px;background:rgba(60,8,40,.55);border:1px solid rgba(255,122,184,.3)}
 .refs b{display:block;font-family:var(--f-display);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.03em}
@@ -845,9 +857,20 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
   }
 
   /* ----- Le Jeu : stories ----- */
-  const LOOKS_H=[['greg','Greg le Millionnaire','Satin + chaîne + montre XXL'],['steevy','Steevy Boulay','Fourrure rose + cheveux gelés'],['mickael','Mickaël Vendetta','Blazer brillant + pose de star'],['giuseppe','Giuseppe Polimeno','Léopard + velours + bijoux']];
-  const LOOKS_F=[['nabilla','Nabilla','Léopard + strass + bronzer orange'],['loana','Loana','Rose + platine + gloss givré'],['afida','Afida Turner','Crinière XXL + léopard + doré'],['tatiana','Tatiana Laurens','Velours rose + khôl + nacre']];
-  const looks=a=>`<div class="looks">${a.map(([k,n,d])=>`<figure class="look"><img src="img/look-${k}.webp" alt="${esc(n)}" loading="lazy"><figcaption><b>${esc(n)}</b><span>${esc(d)}</span></figcaption></figure>`).join('')}</div>`;
+  const REFS_F=[
+    ['📺','Secret Story · Loft Story',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['loana2','Loana']]],
+    ['💅','Les Anges · Les Marseillais',"Outfit scandaleux, faux cils, ongles et talons XXL. Attitude de cagole totalement assumée.",[['maeva','Maeva'],['nabilla','Nabilla']]],
+    ['🌴',"L'Île de la Tentation","Bronzage doré, cheveux wavy, robe blanche, chaussures blanches assorties… La tentatrice beauf qui pense crever l'écran.",[['tentatrices','Les tentatrices',1]]],
+    ['💔','La Villa des Cœurs Brisés',"Robe de soirée à paillettes, extensions jusqu'aux reins, mascara waterproof obligatoire : ça va pleurer au confessionnal.",[['aurelie','Aurélie']]]
+  ];
+  const REFS_H=[
+    ['📺','Secret Story · Loft Story',"T-shirt col V moulant, cheveux en pics au gel, ceinture à grosse boucle, bracelet en cuir et tatouage tribal.",[['steevy','Steevy'],['julien','Julien Tanti']]],
+    ['💪','Les Anges · Les Marseillais',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['paga','Paga'],['raphael','Raphaël']]],
+    ['🌴',"L'Île de la Tentation","Ensemble blanc en lin de kéké 8000, chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.",[['tentateurs','Les tentateurs',1]]],
+    ['🤵','Greg le Millionnaire',"Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.",[['greg','Greg',1]]]
+  ];
+  const refsHTML=a=>`<div class="refs2">${a.map(([e,t,d,ph])=>`<section class="ref"><h3><span>${e}</span>${esc(t)}</h3><p>${esc(d)}</p>
+    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
   const SLIDES=[
     ()=>`<p class="eyebrow">01 / Le personnage</p><h1>Même prénom. Une facette de toi poussée à fond.</h1><div class="mega">Toi dans l'abus</div>
       <p class="lead">Le DJ devient une star internationale dans sa tête. La coquette devient une diva. Le compétitif joue sa vie. Le but : qu'on te repère dès ton entrée.</p>`,
@@ -856,20 +879,8 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
       <div class="step"><b>02</b><strong>Une phrase qui donne envie</strong><span>Formule-le comme dans Secret Story : « J'ai… », « Je suis… », « J'ai déjà… »</span></div>
       <div class="step"><b>03</b><strong>À découvrir pendant la soirée</strong><span>Questions, soupçons, petits indices : on enquête. Tu protèges ton secret jusqu'à la révélation.</span></div>
       <div class="callout">Prépare-le avant de venir. Il ne figure pas sur ta fiche publique : seule la Voix le connaît.</div>`,
-    ()=>`<p class="eyebrow">03 / Le look · Les nanas</p><h1>Toujours plus !</h1><p class="lead">Arrive comme si les caméras tournaient déjà.</p>
-      <div class="refs">
-        <div><b>📺 Secret Story · Loft Story</b><span>Années 2000 assumées : velours rose, top pailleté, gloss qui brille.</span></div>
-        <div><b>💅 Les Anges · Les Marseillais</b><span>Outfit scandaleux, faux cils, ongles et talons XXL. Attitude de cagole totalement assumée.</span></div>
-        <div><b>🌴 L'Île de la Tentation</b><span>Bronzage doré, cheveux wavy, robe blanche, chaussures blanches assorties… La tentatrice beauf qui pense crever l'écran.</span></div>
-        <div><b>💔 La Villa des Cœurs Brisés</b><span>Robe de soirée à paillettes, extensions jusqu'aux reins, mascara waterproof obligatoire : ça va pleurer au confessionnal.</span></div>
-      </div>${looks(LOOKS_F)}`,
-    ()=>`<p class="eyebrow">03 / Le look · Les mecs</p><h1>Toujours plus !</h1><p class="lead">Ce soir, tu es le beau gosse de la saison.</p>
-      <div class="refs">
-        <div><b>📺 Secret Story · Loft Story</b><span>T-shirt col V moulant, cheveux en pics au gel, ceinture à grosse boucle, bracelet en cuir et tatouage tribal.</span></div>
-        <div><b>💪 Les Anges · Les Marseillais</b><span>T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.</span></div>
-        <div><b>🌴 L'Île de la Tentation</b><span>Ensemble blanc en lin de kéké 8000, chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.</span></div>
-        <div><b>🤵 Greg le Millionnaire</b><span>Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.</span></div>
-      </div>${looks(LOOKS_H)}`,
+    ()=>`<p class="eyebrow">03 / Le look · Les nanas</p><h1>Toujours plus !</h1><p class="lead">Arrive comme si les caméras tournaient déjà.</p>${refsHTML(REFS_F)}`,
+    ()=>`<p class="eyebrow">03 / Le look · Les mecs</p><h1>Toujours plus !</h1><p class="lead">Ce soir, tu es le beau gosse de la saison.</p>${refsHTML(REFS_H)}`,
     ()=>`<p class="eyebrow">04 / Exemple de personnage</p><h1>Duv. Le DJ kéké.</h1>
       <div class="ex"><img src="img/c-duv.webp" alt="Carte de Duv"><div><p class="eyebrow" style="font-size:11px">Son obsession</p><p>Faire danser la planète. Commencer par le chalet.</p><p class="eyebrow" style="font-size:11px">Son look</p><p>Il croit qu'il est archi stylé, mais c'est juste un énorme ringard. Il est resté bloqué en 2003.</p><p>Tee-shirt col V moulant. Boucle d'oreille faux diamant. Bronzage orange. Jean Kaporal.</p></div></div>
       <div class="callout"><b>« Ce soir, je vous emmène à Ibiza. »</b><br><span style="color:var(--mist)">Son vrai secret ? Il le garde pour le jeu.</span></div>`,
