@@ -219,6 +219,10 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;resize:vertical;font:
 .step strong{font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:15px}
 .step span{font-size:14px;color:var(--mist);line-height:1.45}
 .callout{padding:14px 16px;border-radius:16px;background:rgba(255,46,136,.16);border:1px solid var(--neon-soft);font-size:15px;line-height:1.5}
+.refs{display:flex;flex-direction:column;gap:8px}
+.refs div{padding:10px 14px;border-radius:14px;background:rgba(60,8,40,.55);border:1px solid rgba(255,122,184,.3)}
+.refs b{display:block;font-family:var(--f-display);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.03em}
+.refs span{font-size:13px;color:var(--mist);line-height:1.4}
 .looks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .look{margin:0}
 .look img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:14px;display:block;box-shadow:0 10px 24px rgba(0,0,0,.5)}
@@ -852,8 +856,19 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
       <div class="step"><b>02</b><strong>Une phrase qui donne envie</strong><span>Formule-le comme dans Secret Story : « J'ai… », « Je suis… », « J'ai déjà… »</span></div>
       <div class="step"><b>03</b><strong>À découvrir pendant la soirée</strong><span>Questions, soupçons, petits indices : on enquête. Tu protèges ton secret jusqu'à la révélation.</span></div>
       <div class="callout">Prépare-le avant de venir. Il ne figure pas sur ta fiche publique : seule la Voix le connaît.</div>`,
-    ()=>`<p class="eyebrow">03 / Le look · Les mecs</p><h1>Toujours plus.</h1><p class="lead">Idées d'outfit.</p>${looks(LOOKS_H)}`,
-    ()=>`<p class="eyebrow">03 / Le look · Les nanas</p><h1>Toujours plus.</h1><p class="lead">Idées d'outfit.</p>${looks(LOOKS_F)}`,
+    ()=>`<p class="eyebrow">03 / Le look · Les nanas</p><h1>Toujours plus !</h1><p class="lead">Arrive comme si les caméras tournaient déjà.</p>
+      <div class="refs">
+        <div><b>🌴 L'Île de la Tentation</b><span>Robe moulante, talons, bronzage doré, cheveux wavy. Tu débarques en villa, pas au ski.</span></div>
+        <div><b>💅 Les Anges · Les Marseillais</b><span>Ensemble ultra ajusté, faux cils, ongles XXL, sac à strass. Attitude de diva non négociable.</span></div>
+        <div><b>📺 Secret Story · Loft Story</b><span>Années 2000 assumées : velours rose, top pailleté, gloss qui brille.</span></div>
+      </div>${looks(LOOKS_F)}`,
+    ()=>`<p class="eyebrow">03 / Le look · Les mecs</p><h1>Toujours plus !</h1><p class="lead">Ce soir, tu es le beau gosse de la saison.</p>
+      <div class="refs">
+        <div><b>🌴 L'Île de la Tentation</b><span>Chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.</span></div>
+        <div><b>🤵 Greg le Millionnaire</b><span>Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.</span></div>
+        <div><b>💪 Les Anges · Les Marseillais</b><span>T-shirt une taille en dessous, casquette, bronzage, gros bijoux.</span></div>
+        <div><b>📺 Secret Story · Loft Story</b><span>Flashy 2000 : fourrure, satin, cheveux gelés.</span></div>
+      </div>${looks(LOOKS_H)}`,
     ()=>`<p class="eyebrow">04 / Exemple de personnage</p><h1>Duv. Le DJ kéké.</h1>
       <div class="ex"><img src="img/c-duv.webp" alt="Carte de Duv"><div><p class="eyebrow" style="font-size:11px">Son obsession</p><p>Faire danser la planète. Commencer par le chalet.</p><p class="eyebrow" style="font-size:11px">Son look</p><p>Il croit qu'il est archi stylé, mais c'est juste un énorme ringard. Il est resté bloqué en 2003.</p><p>Tee-shirt col V moulant. Boucle d'oreille faux diamant. Bronzage orange. Jean Kaporal.</p></div></div>
       <div class="callout"><b>« Ce soir, je vous emmène à Ibiza. »</b><br><span style="color:var(--mist)">Son vrai secret ? Il le garde pour le jeu.</span></div>`,
