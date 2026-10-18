@@ -223,13 +223,14 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;resize:vertical;font:
 .ref{padding:14px;border-radius:18px;background:rgba(30,4,22,.72);border:1px solid rgba(255,122,184,.35);box-shadow:0 0 22px rgba(255,46,136,.15);display:flex;flex-direction:column;gap:8px}
 .ref h3{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-style:italic;font-weight:900;font-size:17px;text-transform:uppercase;letter-spacing:.02em;text-shadow:0 0 12px rgba(255,46,136,.6)}
 .ref p{margin:0;font-size:14px;color:var(--mist);line-height:1.45}
-.refPics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:4px}
+.refPics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:4px;align-items:start}
 .refPics figure{margin:0;position:relative;border-radius:12px;overflow:hidden;border:2px solid var(--neon-soft);box-shadow:0 0 16px rgba(255,46,136,.45)}
 .refPics figure:nth-child(odd){transform:rotate(-1.5deg)}.refPics figure:nth-child(even){transform:rotate(1.5deg)}
 .refPics figure.wide{grid-column:span 2;transform:rotate(-.8deg)}
-.refPics img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 20%}
+.refPics img{display:block;width:100%;height:auto}
 .refPics figure:only-child:not(.wide){grid-column:span 2;width:62%;justify-self:center}
-.refPics .wide img{aspect-ratio:3/2;object-position:50% 35%}
+#stories .tapL,#stories .tapR{display:none}
+.slide{touch-action:pan-y;overscroll-behavior:contain}
 .refPics figcaption{position:absolute;left:0;right:0;bottom:0;padding:16px 8px 6px;background:linear-gradient(transparent,rgba(7,2,12,.9));font-family:var(--f-display);font-weight:800;font-style:italic;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
 .refs{display:flex;flex-direction:column;gap:8px}
 .refs div{padding:10px 14px;border-radius:14px;background:rgba(60,8,40,.55);border:1px solid rgba(255,122,184,.3)}
@@ -858,19 +859,19 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 
   /* ----- Le Jeu : stories ----- */
   const REFS_F=[
-    ['📺','La reine des années 2000',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['loana2','Loana']]],
+    ['📺','La reine des années 2000',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['loana2','Loana',1]]],
     ['💅','La cagole de luxe',"Outfit scandaleux, faux cils, ongles et talons XXL. Attitude de cagole totalement assumée.",[['maeva','Maeva'],['nabilla','Nabilla']]],
     ['🌴','La tentatrice',"Bronzage doré, cheveux wavy, robe blanche, chaussures blanches assorties… La tentatrice beauf qui pense crever l'écran.",[['tentatrices','Les tentatrices',1]]],
     ['💔','La cœur brisé',"Robe de soirée à paillettes, extensions jusqu'aux reins, mascara waterproof obligatoire : ça va pleurer au confessionnal.",[['aurelie','Aurélie']]]
   ];
   const REFS_H=[
     ['📺','Le kéké 2007',"T-shirt col V moulant, cheveux en pics au gel, ceinture à grosse boucle, bracelet en cuir et tatouage tribal.",[['steevy','Steevy'],['julien','Julien Tanti']]],
-    ['💪','Le bronzé de Dubaï',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['paga','Paga'],['raphael','Raphaël']]],
+    ['💪','Le bronzé de Dubaï',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['paga','Paga'],['raphael','Raphaël',1]]],
     ['🌴','Le tentateur',"Ensemble blanc en lin de kéké 8000, chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.",[['tentateurs','Les tentateurs',1]]],
     ['🤵','Le faux millionnaire',"Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.",[['greg','Greg',1]]]
   ];
   const refsHTML=a=>`<div class="refs2">${a.map(([e,t,d,ph])=>`<section class="ref"><h3><span>${e}</span>${esc(t)}</h3><p>${esc(d)}</p>
-    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
+    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}-2.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
   const SLIDES=[
     ()=>`<p class="eyebrow">01 / Le personnage</p><h1>Même prénom. Une facette de toi poussée à fond.</h1><div class="mega">Toi dans l'abus</div>
       <p class="lead">Le DJ devient une star internationale dans sa tête. La coquette devient une diva. Le compétitif joue sa vie. Le but : qu'on te repère dès ton entrée.</p>`,
