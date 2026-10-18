@@ -439,8 +439,8 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 .gBg{position:fixed;inset:0;background:url(img/bg.webp) center/cover;filter:brightness(.45) saturate(1.15)}
 .gBg::after{content:"";position:absolute;inset:0;background:url(img/chalet.webp) center 30%/96% no-repeat;opacity:.55}
 .gIn{position:relative;min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:calc(28px + env(safe-area-inset-top,0px)) 22px calc(90px + env(safe-area-inset-bottom,0px));text-align:center}
-.gEye{width:min(56vw,230px);animation:eyeOpen 1s cubic-bezier(.3,1.5,.5,1) .2s backwards;filter:drop-shadow(0 0 24px rgba(61,123,255,.5))}
-.gLogo{width:min(80vw,340px);margin-top:-14px;animation:slam .8s cubic-bezier(.2,1.6,.4,1) .7s backwards}
+.gEye{width:min(42vw,180px);animation:eyeOpen 1s cubic-bezier(.3,1.5,.5,1) .2s backwards;filter:drop-shadow(0 0 24px rgba(61,123,255,.5))}
+.gLogo{width:min(66vw,290px);margin-top:-12px;animation:slam .8s cubic-bezier(.2,1.6,.4,1) .7s backwards}
 #gate h1{font-size:clamp(26px,8vw,36px);max-width:12em;animation:fade .6s ease 1.2s backwards}
 .gSteps{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;width:100%;max-width:380px;animation:fade .6s ease 1.5s backwards}
 .gSteps li{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:16px;background:var(--glass-strong);border:1px solid rgba(255,122,184,.35)}
@@ -448,6 +448,11 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 .gSteps li p{margin:0;font-size:15px;line-height:1.35}
 .gSteps .ico{display:inline-flex;vertical-align:middle;color:var(--neon-soft)}
 #instBtn{width:100%;max-width:380px}
+.gLead{margin:0;font-size:15px;color:var(--mist);max-width:24em;animation:fade .6s ease 1.4s backwards}
+.gSteps li small{display:block;font-size:13px;color:var(--mist);margin-top:4px;line-height:1.4}
+.gNote{margin:0;font-size:12px;color:var(--mist);max-width:26em}
+.gBig{width:100%;max-width:380px;font-size:20px;padding:20px 22px;animation:fade .6s ease 1.4s backwards,pulse 1.6s ease-in-out 2s infinite}
+.gFallback{display:flex;flex-direction:column;gap:12px;align-items:center;width:100%}
 .gSkip{font:inherit;font-size:13px;color:var(--mist);background:none;border:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px;margin-top:4px}
 .gArrow{position:fixed;left:50%;bottom:calc(6px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font-size:34px;color:var(--ice);text-shadow:0 0 14px var(--neon);animation:bob 1.2s ease-in-out infinite}
 @keyframes bob{50%{transform:translate(-50%,8px)}}
@@ -1311,7 +1316,9 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
   }
   /* ----- écran « installe l'app » ----- */
   let deferredPrompt=null;
-  addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;const b=document.getElementById('instBtn');if(b)b.hidden=false});
+  addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});
+  addEventListener('appinstalled',()=>{const g=document.getElementById('gate');if(g){g.querySelector('h1').textContent="C'est installé ! Ouvre l'app depuis ton écran d'accueil 🔥"}});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
   const ua=navigator.userAgent;
   const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
   const isIOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
@@ -1322,22 +1329,38 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
   function installGate(){
     const el=document.createElement('div'); el.id='gate';
     const shareIco='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M8 7l4-4 4 4M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>';
-    const steps=inApp
-      ?`<li><span>1</span><p>Appuie sur <b>⋯</b> ou <b>⋮</b> en haut à droite</p></li><li><span>2</span><p>Choisis <b>« Ouvrir dans ${isIOS?'Safari':'le navigateur'} »</b></p></li><li><span>3</span><p>Puis reviens ici pour l'installer</p></li>`
-      :isIOS
-      ?`<li><span>1</span><p>Appuie sur <b class="ico">${shareIco}</b> <b>Partager</b>, en bas de Safari (ou à côté de l'adresse dans Chrome)</p></li><li><span>2</span><p>Choisis <b>« Sur l'écran d'accueil »</b>. Tu ne le vois pas ? Fais défiler ou appuie d'abord sur <b>« En voir plus »</b></p></li><li><span>3</span><p>Appuie sur <b>Ajouter</b>, puis ouvre l'app depuis ton écran d'accueil</p></li>`
-      :`<li><span>1</span><p>Appuie sur <b>⋮</b> en haut à droite de Chrome</p></li><li><span>2</span><p>Choisis <b>« Installer l'application »</b> ou <b>« Ajouter à l'écran d'accueil »</b></p></li><li><span>3</span><p>Ouvre l'app depuis ton écran d'accueil</p></li>`;
+    const dots='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></svg>';
+    const plusIco='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    let body;
+    if(inApp){
+      body=`<ol class="gSteps"><li><span>1</span><p>Tu es dans le navigateur d'une autre appli. Appuie sur <b>⋯</b> ou <b>⋮</b> en haut à droite</p></li><li><span>2</span><p>Choisis <b>« Ouvrir dans ${isIOS?'Safari':'le navigateur'} »</b></p></li><li><span>3</span><p>L'écran d'installation s'affichera de nouveau, suis les étapes</p></li></ol>`;
+    } else if(isIOS){
+      body=`<p class="gLead">3 taps et l'app est sur ton écran d'accueil, en plein écran, comme une vraie app.</p>
+      <ol class="gSteps">
+        <li><span>1</span><p>Appuie sur le bouton <b class="ico">${shareIco}</b> <b>Partager</b>.<small>Dans Safari : en bas de l'écran, au milieu (ou touche d'abord <b class="ico">${dots}</b> à côté de l'adresse). Dans Chrome : en haut, à droite de l'adresse.</small></p></li>
+        <li><span>2</span><p>Fais défiler la liste et choisis <b class="ico">${plusIco}</b> <b>« Sur l'écran d'accueil »</b>.<small>Tu ne le vois pas ? Appuie d'abord sur <b>« En voir plus »</b> ou <b>« Modifier les actions »</b>, il est dedans.</small></p></li>
+        <li><span>3</span><p>Appuie sur <b>Ajouter</b> en haut à droite.<small>L'icône <b>Le Chalet</b> apparaît sur ton écran d'accueil. Ouvre l'app depuis cette icône.</small></p></li>
+      </ol>
+      <p class="gNote">Tu as un iPhone avec un iOS ancien et l'option n'apparaît pas ? Ouvre le lien dans <b>Safari</b>, c'est là que ça marche toujours.</p>`;
+    } else {
+      body=`<button class="btn primary gBig" id="instBtn" type="button">📲 Installe l'app en cliquant ici</button>
+      <div class="gFallback" id="gFallback" hidden><p class="gLead">Ton navigateur ne propose pas l'installation en un clic. Pas grave, en 2 taps :</p>
+      <ol class="gSteps"><li><span>1</span><p>Ouvre le lien dans <b>Chrome</b>, puis appuie sur <b>⋮</b> en haut à droite</p></li><li><span>2</span><p>Choisis <b>« Installer l'application »</b> ou <b>« Ajouter à l'écran d'accueil »</b></p></li></ol></div>`;
+    }
     el.innerHTML=`<div class="gBg"></div><div class="gIn">
       <img class="gEye" src="img/eye.webp" alt="">
       <img class="gLogo" src="img/logo.webp" alt="Le Chalet des Secrets">
       <h1>Installe l'app sur ton téléphone</h1>
-      <button class="btn primary" id="instBtn" type="button" hidden>📲 Installer l'app</button>
-      <ol class="gSteps">${steps}</ol>
+      ${body}
       <button class="gSkip" id="gSkip" type="button">Continuer dans le navigateur</button>
-    </div>${isIOS&&!inApp?'<div class="gArrow" aria-hidden="true">↓</div>':''}`;
+    </div>`;
     app.appendChild(el);
-    if(deferredPrompt)el.querySelector('#instBtn').hidden=false;
-    el.querySelector('#instBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();const r=await deferredPrompt.userChoice;deferredPrompt=null;if(r&&r.outcome==='accepted'){el.querySelector('h1').textContent='C\'est installé ! Ouvre l\'app depuis ton écran d\'accueil 🔥';el.querySelector('#instBtn').hidden=true}};
+    const ib=el.querySelector('#instBtn');
+    if(ib)ib.onclick=async()=>{
+      if(!deferredPrompt){el.querySelector('#gFallback').hidden=false;ib.hidden=true;return}
+      deferredPrompt.prompt(); const r=await deferredPrompt.userChoice; deferredPrompt=null;
+      if(r&&r.outcome==='accepted'){el.querySelector('h1').textContent="C'est installé ! Ouvre l'app depuis ton écran d'accueil 🔥";ib.hidden=true}
+    };
     el.querySelector('#gSkip').onclick=()=>{try{localStorage.setItem('chalet_skip_install','1')}catch(e){};el.remove();boot()};
   }
 })();
