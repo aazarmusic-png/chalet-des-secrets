@@ -871,7 +871,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     ['🤵','Le faux millionnaire',"Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.",[['greg','Greg',1]]]
   ];
   const refsHTML=a=>`<div class="refs2">${a.map(([e,t,d,ph])=>`<section class="ref"><h3><span>${e}</span>${esc(t)}</h3><p>${esc(d)}</p>
-    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}-2.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
+    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}${k==='tentatrices'?'-3':'-2'}.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
   const SLIDES=[
     ()=>`<p class="eyebrow">01 / Le personnage</p><h1>Même prénom. Une facette de toi poussée à fond.</h1><div class="mega">Toi dans l'abus</div>
       <p class="lead">Le DJ devient une star internationale dans sa tête. La coquette devient une diva. Le compétitif joue sa vie. Le but : qu'on te repère dès ton entrée.</p>`,
