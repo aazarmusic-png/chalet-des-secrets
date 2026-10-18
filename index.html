@@ -858,16 +858,16 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 
   /* ----- Le Jeu : stories ----- */
   const REFS_F=[
-    ['📺','Secret Story · Loft Story',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['loana2','Loana']]],
-    ['💅','Les Anges · Les Marseillais',"Outfit scandaleux, faux cils, ongles et talons XXL. Attitude de cagole totalement assumée.",[['maeva','Maeva'],['nabilla','Nabilla']]],
-    ['🌴',"L'Île de la Tentation","Bronzage doré, cheveux wavy, robe blanche, chaussures blanches assorties… La tentatrice beauf qui pense crever l'écran.",[['tentatrices','Les tentatrices',1]]],
-    ['💔','La Villa des Cœurs Brisés',"Robe de soirée à paillettes, extensions jusqu'aux reins, mascara waterproof obligatoire : ça va pleurer au confessionnal.",[['aurelie','Aurélie']]]
+    ['📺','La reine des années 2000',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['loana2','Loana']]],
+    ['💅','La cagole de luxe',"Outfit scandaleux, faux cils, ongles et talons XXL. Attitude de cagole totalement assumée.",[['maeva','Maeva'],['nabilla','Nabilla']]],
+    ['🌴','La tentatrice',"Bronzage doré, cheveux wavy, robe blanche, chaussures blanches assorties… La tentatrice beauf qui pense crever l'écran.",[['tentatrices','Les tentatrices',1]]],
+    ['💔','La cœur brisé',"Robe de soirée à paillettes, extensions jusqu'aux reins, mascara waterproof obligatoire : ça va pleurer au confessionnal.",[['aurelie','Aurélie']]]
   ];
   const REFS_H=[
-    ['📺','Secret Story · Loft Story',"T-shirt col V moulant, cheveux en pics au gel, ceinture à grosse boucle, bracelet en cuir et tatouage tribal.",[['steevy','Steevy'],['julien','Julien Tanti']]],
-    ['💪','Les Anges · Les Marseillais',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['paga','Paga'],['raphael','Raphaël']]],
-    ['🌴',"L'Île de la Tentation","Ensemble blanc en lin de kéké 8000, chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.",[['tentateurs','Les tentateurs',1]]],
-    ['🤵','Greg le Millionnaire',"Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.",[['greg','Greg',1]]]
+    ['📺','Le kéké 2007',"T-shirt col V moulant, cheveux en pics au gel, ceinture à grosse boucle, bracelet en cuir et tatouage tribal.",[['steevy','Steevy'],['julien','Julien Tanti']]],
+    ['💪','Le bronzé de Dubaï',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['paga','Paga'],['raphael','Raphaël']]],
+    ['🌴','Le tentateur',"Ensemble blanc en lin de kéké 8000, chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.",[['tentateurs','Les tentateurs',1]]],
+    ['🤵','Le faux millionnaire',"Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.",[['greg','Greg',1]]]
   ];
   const refsHTML=a=>`<div class="refs2">${a.map(([e,t,d,ph])=>`<section class="ref"><h3><span>${e}</span>${esc(t)}</h3><p>${esc(d)}</p>
     <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
