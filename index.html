@@ -228,6 +228,7 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;resize:vertical;font:
 .refPics figure:nth-child(odd){transform:rotate(-1.5deg)}.refPics figure:nth-child(even){transform:rotate(1.5deg)}
 .refPics figure.wide{grid-column:span 2;transform:rotate(-.8deg)}
 .refPics img{display:block;width:100%;height:auto}
+.refPics figure:not(.wide):not(:only-child) img{aspect-ratio:2/3;object-fit:cover;object-position:50% 12%}
 .refPics figure:only-child:not(.wide){grid-column:span 2;width:62%;justify-self:center}
 #stories .tapL,#stories .tapR{display:none}
 .slide{touch-action:pan-y;overscroll-behavior:contain}
@@ -859,19 +860,20 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 
   /* ----- Le Jeu : stories ----- */
   const REFS_F=[
-    ['📺','La reine des années 2000',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['afida','Afida'],['loana2','Loana',1]]],
+    ['📺','La reine des années 2000',"Années 2000 assumées : velours rose, top pailleté, gloss qui brille.",[['loana','Loana'],['afida','Afida']]],
     ['💅','La cagole de luxe',"Outfit scandaleux, faux cils, ongles et talons XXL. Attitude de cagole totalement assumée.",[['maeva','Maeva'],['nabilla','Nabilla']]],
     ['🌴','La tentatrice',"Bronzage doré, cheveux wavy, robe blanche, chaussures blanches assorties… La tentatrice beauf qui pense crever l'écran.",[['tentatrices','Les tentatrices',1]]],
     ['💔','La Drama Queen',"Extensions jusqu'aux reins, mascara waterproof, le drame sur pattes. Rendez-vous au confessionnal.",[['aurelie','Aurélie']]]
   ];
   const REFS_H=[
     ['📺','Le kéké 2007',"T-shirt col V moulant, cheveux en pics au gel, ceinture à grosse boucle, bracelet en cuir et tatouage tribal.",[['steevy','Steevy'],['paga','Paga']]],
-    ['💪','Le bronzé de Dubaï',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['julien','Julien Tanti'],['raphael','Raphaël',1]]],
+    ['💪','Le bronzé de Dubaï',"T-shirt une taille en dessous, casquette, lunettes de soleil, gros bijoux et le bronzage de Donald Trump.",[['julien','Julien Tanti'],['vivian','Vivian']]],
     ['🌴','Le tentateur',"Ensemble blanc en lin de kéké 8000, chemise ouverte (très), chaîne en or, lunettes de soleil même la nuit.",[['tentateurs','Les tentateurs',1]]],
     ['🤵','Le faux millionnaire',"Costume clair, chemise satin, montre XXL. Tu as un hélico garé dehors.",[['greg','Greg',1]]]
   ];
+  const REF3=['tentatrices','loana','afida','julien','maeva','nabilla','steevy','paga','aurelie','vivian'];
   const refsHTML=a=>`<div class="refs2">${a.map(([e,t,d,ph])=>`<section class="ref"><h3><span>${e}</span>${esc(t)}</h3><p>${esc(d)}</p>
-    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}${k==='tentatrices'?'-3':'-2'}.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
+    <div class="refPics">${ph.map(([k,n,wide])=>`<figure class="${wide?'wide':''}"><img src="img/ref-${k}${REF3.includes(k)?'-3':'-2'}.webp" alt="${esc(n)}" loading="lazy"><figcaption>${esc(n)}</figcaption></figure>`).join('')}</div></section>`).join('')}</div>`;
   const SLIDES=[
     ()=>`<p class="eyebrow">01 / Le personnage</p><h1>Même prénom. Une facette de toi poussée à fond.</h1><div class="mega">Toi dans l'abus</div>
       <p class="lead">Le DJ devient une star internationale dans sa tête. La coquette devient une diva. Le compétitif joue sa vie. Le but : qu'on te repère dès ton entrée.</p>`,
