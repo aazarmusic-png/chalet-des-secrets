@@ -1325,7 +1325,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     const steps=inApp
       ?`<li><span>1</span><p>Appuie sur <b>⋯</b> ou <b>⋮</b> en haut à droite</p></li><li><span>2</span><p>Choisis <b>« Ouvrir dans ${isIOS?'Safari':'le navigateur'} »</b></p></li><li><span>3</span><p>Puis reviens ici pour l'installer</p></li>`
       :isIOS
-      ?`<li><span>1</span><p>Appuie sur <b class="ico">${shareIco}</b> <b>Partager</b>, en bas de Safari (ou à côté de l'adresse dans Chrome)</p></li><li><span>2</span><p>Choisis <b>« Sur l'écran d'accueil »</b></p></li><li><span>3</span><p>Appuie sur <b>Ajouter</b>, puis ouvre l'app depuis ton écran d'accueil</p></li>`
+      ?`<li><span>1</span><p>Appuie sur <b class="ico">${shareIco}</b> <b>Partager</b>, en bas de Safari (ou à côté de l'adresse dans Chrome)</p></li><li><span>2</span><p>Choisis <b>« Sur l'écran d'accueil »</b>. Tu ne le vois pas ? Fais défiler ou appuie d'abord sur <b>« En voir plus »</b></p></li><li><span>3</span><p>Appuie sur <b>Ajouter</b>, puis ouvre l'app depuis ton écran d'accueil</p></li>`
       :`<li><span>1</span><p>Appuie sur <b>⋮</b> en haut à droite de Chrome</p></li><li><span>2</span><p>Choisis <b>« Installer l'application »</b> ou <b>« Ajouter à l'écran d'accueil »</b></p></li><li><span>3</span><p>Ouvre l'app depuis ton écran d'accueil</p></li>`;
     el.innerHTML=`<div class="gBg"></div><div class="gIn">
       <img class="gEye" src="img/eye.webp" alt="">
