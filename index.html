@@ -1345,7 +1345,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
   let deferredPrompt=null;
   addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e});
   addEventListener('appinstalled',()=>{const g=document.getElementById('gate');if(g){g.querySelector('h1').textContent="C'est installé ! Ouvre l'app depuis ton écran d'accueil 🔥"}});
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=2',{updateViaCache:'none'}).catch(()=>{});
   const ua=navigator.userAgent;
   const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
   const isIOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
