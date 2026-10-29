@@ -594,8 +594,8 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     else{tents=tents.map(t=>t.id===id?Object.assign({},t,patch):t);lsSet(TKEY,tents);recompute();emit()}
   }
   async function setGame(v){if(db){await db.doc('etat/partie').set(v)}else{game=v;lsSet(GKEY,v);emit()}}
-  function savedCodes(){return lsGet('chalet_codes_v4')||{}}
-  function saveCode(id,code){const m=savedCodes(); if(code)m[id]=code; else delete m[id]; lsSet('chalet_codes_v4',m)}
+  function savedCodes(){return lsGet('chalet_codes_v5')||{}}
+  function saveCode(id,code){const m=savedCodes(); if(code)m[id]=code; else delete m[id]; lsSet('chalet_codes_v5',m)}
   async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
   /* ================== STAGE / INTRO ================== */
@@ -667,9 +667,9 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 
   /* ================== SESSION ================== */
   let me=null; // candidat id once code entered
-  try{me=localStorage.getItem('chalet_me_v6')}catch(e){}
+  try{me=localStorage.getItem('chalet_me_v7')}catch(e){}
   if(me&&!byId[me])me=null;
-  function setMe(id){me=id;try{id?localStorage.setItem('chalet_me_v6',id):localStorage.removeItem('chalet_me_v6')}catch(e){}}
+  function setMe(id){me=id;try{id?localStorage.setItem('chalet_me_v7',id):localStorage.removeItem('chalet_me_v7')}catch(e){}}
 
   /* ================== ROUTER ================== */
   let unsub=null;
@@ -1198,7 +1198,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     }
   }
   listeners.add(checkAlerts);
-  const MSEEN='chalet_mission_seen';
+  const MSEEN='chalet_mission_seen_v2';
   function missionAlert(){
     if(!me||!missionOpen()||document.getElementById('alert')||document.getElementById('mAlert'))return;
     let seenM=false;try{seenM=localStorage.getItem(MSEEN+'_'+me)==='1'}catch(e){}
