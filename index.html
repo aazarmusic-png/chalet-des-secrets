@@ -503,6 +503,12 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 .gPoint{position:fixed;z-index:31;font-size:46px;color:#fff;text-shadow:0 0 16px #ff2e88,0 0 4px #ff2e88;pointer-events:none}
 .gPoint.none{display:none}
 .gPoint.bc{left:50%;bottom:calc(4px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);animation:bob 1s ease-in-out infinite}
+.m26{background:rgba(30,30,34,.92);color:#fff;gap:10px;justify-content:space-between}
+.m26 .mIco{color:#fff}
+.mRound{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12)}
+.mPill{flex:1;display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.14)}
+.mUrl2{flex:1;font-size:13px;color:#eee;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gPoint.bl{left:26%;bottom:calc(4px + env(safe-area-inset-bottom,0px));animation:bobR 1s ease-in-out infinite}
 .gPoint.br{right:14px;bottom:calc(4px + env(safe-area-inset-bottom,0px));animation:bobR 1s ease-in-out infinite}
 .gPoint.tr{right:14px;top:calc(4px + env(safe-area-inset-top,0px));animation:bobUp 1s ease-in-out infinite}
 @keyframes bobR{50%{transform:translateY(8px)}}
@@ -1417,6 +1423,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     const el=document.createElement('div'); el.id='gate';
     const shareIco='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M8 7l4-4 4 4M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>';
     const dots='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="5" cy="12" r="2" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="currentColor"/><circle cx="19" cy="12" r="2" fill="currentColor"/></svg>';
+    const menuIco='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>';
     const plusIco='<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     let body;
     if(inApp){
@@ -1426,12 +1433,12 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
       const bar=(hl)=> chromeIOS
         ? `<div class="mock top"><div class="mUrl">aazarmusic-png.github.io</div><div class="mIco ${hl==='share'?'hl':''}">${shareIco}</div></div>`
         : ios26
-        ? `<div class="mock"><div class="mIco">‹</div><div class="mUrl">aazarmusic-png.github.io</div><div class="mIco ${hl==='dots'?'hl':''}">${dots}</div></div>`
+        ? `<div class="mock m26"><div class="mIco mRound">‹</div><div class="mPill"><span class="mIco ${hl==='dots'?'hl':''}">${menuIco}</span><span class="mUrl2">usic-png.github.io</span><span class="mIco">↻</span></div><div class="mIco mRound">⧉</div></div>`
         : `<div class="mock"><div class="mIco">‹</div><div class="mIco">›</div><div class="mIco ${hl==='share'?'hl':''}">${shareIco}</div><div class="mIco">📖</div><div class="mIco">⧉</div></div>`;
       const sheet=`<div class="mSheet"><div class="mRow">Copier</div><div class="mRow">Ajouter aux favoris</div><div class="mRow hl">${plusIco} Sur l'écran d'accueil</div><div class="mRow dim">Voir plus…</div></div>`;
       const add=`<div class="mSheet"><div class="mHead"><span>Annuler</span><b>Écran d'accueil</b><span class="hlTxt">Ajouter</span></div><div class="mApp"><img src="img/icon-180.png" alt=""><span>Le Chalet</span></div></div>`;
       const ST = ios26 ? [
-        ['Touche les ••• en bas à droite de Safari', bar('dots'), 'br'],
+        ['Touche l\'icône ≡ à gauche de l\'adresse, en bas de Safari', bar('dots'), 'bl'],
         ['Touche « Partager »', `<div class="mSheet"><div class="mRow hl">${shareIco} Partager</div><div class="mRow dim">Nouvel onglet</div><div class="mRow dim">Signets</div></div>`, ''],
         ['Choisis « Sur l\'écran d\'accueil ». Pas dans la liste ? Touche « Voir plus »', sheet, ''],
         ['Touche « Ajouter » en haut à droite. C\'est fini 🔥', add, '']
