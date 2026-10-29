@@ -571,20 +571,20 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
   /* ================== CONFIG ================== */
   const SALT='chalet35';
   const CANDIDATS=[
-    {id:'mimi',   name:'Mimi',   f:true,  h:'903d6201cf3bdfb68c317b91973f3de3e2b8ab644511bc8319deb430c88a462f', mission:"Fais dire le mot « chalet » à 3 personnes différentes sans qu'elles se rendent compte que c'était ta mission."},
-    {id:'manu',   name:'Manu',   f:false, h:'a9823306d600317c29a26deab936a93ea901a8f4577e45253e59f6e2119599c3', mission:"Réussis à faire porter tes lunettes de soleil à quelqu'un pendant au moins 5 minutes."},
+    {id:'mimi',   name:'Mimi',   f:true,  h:'09cfc3f302b90472e76b57ff9aa191ab0afab4a908b21e28b5f63b02e9bcfebe', mission:"Fais dire le mot « chalet » à 3 personnes différentes sans qu'elles se rendent compte que c'était ta mission."},
+    {id:'manu',   name:'Manu',   f:false, h:'df17c720367fe4a17834cf0e4ebed3fcc721ac9e6846824efa37e3bb271af6d9', mission:"Réussis à faire porter tes lunettes de soleil à quelqu'un pendant au moins 5 minutes."},
     {id:'duv',    name:'Duv',     f:false, h:'6d6d6f617c3a6a67743fad66325de73e77d4d703ccd9bc85725d5734cb5f2eb8', mission:"Lance un toast surprise avant minuit et fais lever tout le chalet."},
-    {id:'alex',   name:'Alex',   f:false, v:2, h:'7d9de9dda60c0efc8a21f4028c2fc9ee80fdf61907398bd274e2b4ef108dba15', mission:"Fais deviner ton plat préféré à quelqu'un sans jamais le nommer."},
-    {id:'kiki',   name:'Kiki',   f:false, h:'930644ba78b667e7316ac81c148e0af1a4bdb4451e275612afe6c77bd5b55abd', mission:"Glisse le mot « baguette » dans 5 conversations différentes."},
-    {id:'vince',  name:'Vince',  f:false, h:'43c8b6e852f3749039622179ad6090e3b8dfc3d04e061dfeac037f949e5ea66d', mission:"Convaincs quelqu'un d'échanger un accessoire avec toi pour le reste de la soirée."},
-    {id:'charles',name:'Charles',f:false, h:'73dc36e2019021135d536436dbc8967028d8d19e77de2c40f25452d4cc7d8f14', mission:"Fais un compliment différent à chaque candidate de la soirée sans te faire griller."},
+    {id:'alex',   name:'Alex',   f:false, v:2, h:'ba91a8ec56b1563d10bb88f43c9e19737c5ab85e5f5b72038a3f60e5ad095b65', mission:"Fais deviner ton plat préféré à quelqu'un sans jamais le nommer."},
+    {id:'kiki',   name:'Kiki',   f:false, h:'2032e992596d356fbe20a8ef48fd4288386a8eebd3c068960165e6c2013c729a', mission:"Glisse le mot « baguette » dans 5 conversations différentes."},
+    {id:'vince',  name:'Vince',  f:false, h:'fc75acfda527626ce9949fcf168e3ddb0f678b4e1a0917d2c7cb39a5fdeffcf2', mission:"Convaincs quelqu'un d'échanger un accessoire avec toi pour le reste de la soirée."},
+    {id:'charles',name:'Charles',f:false, h:'5fad2b4f1453c4ceb16c90c7ef22a7bbf46a9e10e4afc6c0ee9e859f213127c5', mission:"Fais un compliment différent à chaque candidate de la soirée sans te faire griller."},
     {id:'caro',   name:'Caro',   f:true,  h:'b86c86f8d2bd2c149095061da72d26637e62417c3077bfafbecbde23a1de2ba2', mission:"Fais croire à 2 personnes que tu as un deuxième secret."},
     {id:'ricky',  name:'Ricky',  f:false, h:'a7af398dcc4fc9854fbf644ad9993242b40acf87ff53c3e845c6a6f1909a51e9', mission:"Fais applaudir tout le salon au moins une fois sans dire pourquoi."},
     {id:'juju',   name:'Juju',   f:true,  v:2,  h:'1b61625418b773251f70fa150389de4bdf523fc092136473cd802383947976f9', mission:"Obtiens un indice de quelqu'un sans jamais payer son prix."},
     {id:'laeti',  name:'Laëti',  f:true,  h:'ed6a0ddd65483373dc73339c510260714d9e26aa8bbba6a5242ab761fc966e24', mission:"Fais porter un toast en ton honneur par 3 personnes différentes avant minuit."},
-    {id:'sam',    name:'Sam',    f:false, h:'cfe83eb1c5b5408228ebdaa10729ef38aa10220b769ef628108f714f229eb7e1', mission:"Fais trinquer tout le monde à ta santé au moins une fois dans la soirée."},
-    {id:'estelle',name:'Estelle',f:true,  h:'f627928005a7e3e44835142684af215137bf60b359d45e83570c3c8ad53c3091', mission:"Fais avouer à quelqu'un son pire souvenir de soirée."},
-    {id:'marie',  name:'Marie',  f:true,  h:'f415d818c2e67fb7e2e7cc43418065ac49af4c086f2043b63f202e0855c1863d', mission:"Fais chanter le refrain d'une chanson à tout le salon."}
+    {id:'sam',    name:'Sam',    f:false, h:'49b17de39814dea47fb44fbc90a434c68158c57a4ad01c79ec63e2f20b8f60dc', mission:"Fais trinquer tout le monde à ta santé au moins une fois dans la soirée."},
+    {id:'estelle',name:'Estelle',f:true,  h:'b2feed4823cb3e883ccd50c1eaab5eb65d12d1bfa25715e7f5f37345f52dd0ed', mission:"Fais avouer à quelqu'un son pire souvenir de soirée."},
+    {id:'marie',  name:'Marie',  f:true,  h:'00abcf820d7b705a905bedb956079c0562720c1fd47875318585df6b7f983fe7', mission:"Fais chanter le refrain d'une chanson à tout le salon."}
   ];
   const MISSIONS_TEST=true;
   const PRIX=['🥃 Un shot','🎭 Un gage','👕 Un vêtement en moins','💃 Une danse','🎤 Une chanson'];
