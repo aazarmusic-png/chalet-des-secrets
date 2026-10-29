@@ -385,6 +385,13 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 .cdDate{margin:0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--neon-soft);font-weight:600}
 .tick{animation:tick .35s ease}
 @keyframes tick{from{transform:translateY(-6px);opacity:.3}to{transform:none;opacity:1}}
+.lockedM{cursor:default}
+.lockedM .front{gap:8px}
+.lockI{position:absolute;top:14px;right:16px;font-size:22px}
+.lockedM .front img{width:52%;filter:grayscale(.3) brightness(.85)}
+.mLeft{font-family:var(--f-display);font-style:italic;font-weight:900;font-size:22px;font-variant-numeric:tabular-nums;color:var(--ice);text-shadow:0 0 12px var(--neon)}
+.mAlert{position:absolute;inset:0;z-index:19;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;background:radial-gradient(circle at 50% 30%,#5a0a36,#12020c 70%);animation:fade .3s;overflow-y:auto}
+.mAlert h1{font-size:clamp(26px,8vw,40px)}
 .peekF{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .peekF input{flex:1;min-width:0;font-family:var(--f-display);font-weight:800;font-size:18px;letter-spacing:.3em;text-transform:uppercase;color:var(--ice);background:rgba(0,0,0,.45);border:1.5px solid var(--neon-soft);border-radius:12px;padding:10px 12px}
 .peekF .err{flex-basis:100%;text-align:left;min-height:0}
@@ -941,13 +948,17 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
       <div class="paper">« ${esc(data.secret)} »</div>
       <img class="sealEye" src="img/eye.webp" alt="">
       <div class="stamp"><p class="eyebrow">Bravo ${esc(c.name)}</p><h1>Secret scellé</h1></div>
-      <div class="later"><p class="lead" style="text-align:center">La Voix a une mission pour toi…</p><button class="btn primary" id="toMission" type="button">Découvrir ma mission</button></div>
+      <div class="later"><p class="lead" style="text-align:center">${missionOpen()?'La Voix a une mission pour toi…':'La Voix te confiera ta mission la veille de la soirée…'}</p><button class="btn primary" id="toMission" type="button">${missionOpen()?'Découvrir ma mission':'Voir ma mission'}</button></div>
     </section>`,root=>{
       if(!reduce)setTimeout(()=>{document.getElementById('flash').animate([{opacity:0},{opacity:.9},{opacity:0}],{duration:600});burst(.5,.45,90);if(navigator.vibrate)try{navigator.vibrate([20,40,30])}catch(e){}},2500);
       root.querySelector('#toMission').onclick=()=>missionReveal(c);
     });
   }
+  const MISSION_AT=new Date('2026-11-19T18:00:00+01:00');
+  const missionOpen=()=>Date.now()>=MISSION_AT;
+  function lockLeft(){let d=Math.max(0,MISSION_AT-Date.now());const j=Math.floor(d/864e5),h=Math.floor(d/36e5)%24,m=Math.floor(d/6e4)%60,s=Math.floor(d/1e3)%60;return (j?j+' j ':'')+String(h).padStart(2,'0')+' h '+String(m).padStart(2,'0')+' min '+String(s).padStart(2,'0')+' s'}
   function missionCard(c,open){
+    if(!missionOpen())return `<div class="flip lockedM" id="flip" aria-label="Mission verrouillée"><div class="flipIn"><div class="face front"><span class="lockI">🔒</span><img src="img/eye.webp" alt=""><p class="eyebrow">Mission secrète</p><small>Disponible dans</small><b class="mLeft">${lockLeft()}</b><small>Jeudi 19 novembre · 18h</small></div></div></div>`;
     return `<button class="flip${open?' open':''}" id="flip" type="button" aria-label="Retourner la carte mission">
       <div class="flipIn">
         <div class="face front"><img src="img/eye.webp" alt=""><p class="eyebrow">Mission secrète</p><small>Touche pour révéler</small></div>
@@ -958,11 +969,11 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     show(`<section class="screen" id="sealed" style="gap:22px">
       <div><p class="eyebrow">Top secret</p><h2>Ta mission</h2></div>
       ${missionCard(c,false)}
-      <p class="note" style="max-width:300px">Ne la montre à personne. Tu peux la relire quand tu veux dans ton espace.</p>
+      <p class="note" style="max-width:300px">${missionOpen()?'Ne la montre à personne. Tu peux la relire quand tu veux dans ton espace.':'Elle se débloquera ici et dans ton compte le jeudi 19 novembre à 18h. Garde l\'œil ouvert 👁'}</p>
       <button class="btn primary" id="toSpace" type="button">Entrer dans le chalet</button>
     </section>`,root=>{
       const fl=root.querySelector('#flip');
-      fl.onclick=()=>{if(!fl.classList.contains('open')){fl.classList.add('open');burst(.5,.5,50)}};
+      fl.onclick=()=>{if(fl.classList.contains('lockedM')){fl.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:300});return}if(!fl.classList.contains('open')){fl.classList.add('open');burst(.5,.5,50)}};
       root.querySelector('#toSpace').onclick=()=>dive(c);
     });
   }
@@ -1187,6 +1198,24 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     }
   }
   listeners.add(checkAlerts);
+  const MSEEN='chalet_mission_seen';
+  function missionAlert(){
+    if(!me||!missionOpen()||document.getElementById('alert')||document.getElementById('mAlert'))return;
+    let seenM=false;try{seenM=localStorage.getItem(MSEEN+'_'+me)==='1'}catch(e){}
+    if(seenM||!regs[me])return;
+    const c=byId[me]; const el=document.createElement('div'); el.id='mAlert'; el.className='mAlert';
+    el.innerHTML=`<div class="siren">🚨</div><p class="eyebrow">La Voix</p><h1>Ta mission secrète est arrivée !</h1>${missionCard(c,false)}<p class="note">Touche la carte pour la découvrir. Ne la montre à personne 🤫</p><button class="btn secondary" id="mOk" type="button">Compris, chut</button>`;
+    app.appendChild(el); if(navigator.vibrate)try{navigator.vibrate([80,60,80])}catch(e){}
+    const fl=el.querySelector('#flip'); fl.onclick=()=>{if(!fl.classList.contains('open')){fl.classList.add('open');burst(.5,.5,60)}};
+    el.querySelector('#mOk').onclick=()=>{try{localStorage.setItem(MSEEN+'_'+me,'1')}catch(e){};el.remove()};
+  }
+  let wasOpen=missionOpen();
+  setInterval(()=>{
+    document.querySelectorAll('.mLeft').forEach(b=>b.textContent=lockLeft());
+    if(!wasOpen&&missionOpen()){wasOpen=true;document.querySelectorAll('.lockedM').forEach(f=>{const p=f.closest('.panel,.screen');}); if(typeof window.__rerender==='function')window.__rerender()}
+    missionAlert();
+  },1000);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)missionAlert()});
 
   /* ----- compte utilisateur ----- */
   function logout(){const a=document.getElementById('account');a&&a.remove();setMe(null);home();setReady();seen=true;ctaState();toast('Tu es déconnecté. À bientôt dans le chalet 👋')}
@@ -1208,7 +1237,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
             <div class="panel kv"><p class="eyebrow">Mon secret · caché</p>${r?`<p class="secretTxt blurred" id="sec">•••••• •••• ••• ••••••• ••••</p>`:'<p class="secretTxt">Pas encore rempli.</p>'}
               ${r?`<div class="row"><button class="smallBtn" id="peek" type="button">👁 Afficher</button></div>
               <form id="peekF" class="peekF" hidden autocomplete="off"><input id="peekCode" maxlength="6" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="Ton code" aria-label="Ton code secret"><button class="smallBtn" type="submit">Valider</button><p class="err" id="peekErr"></p></form>`:''}</div>
-            <div class="panel missionWrap"><p class="eyebrow">Ma mission secrète</p>${missionCard(c,false)}<p class="note">Touche la carte pour la retourner. Chut 🤫</p></div>
+            <div class="panel missionWrap"><p class="eyebrow">Ma mission secrète</p>${missionCard(c,false)}<p class="note">${missionOpen()?'Touche la carte pour la retourner. Chut 🤫':'La Voix te la confiera la veille de la soirée.'}</p></div>
             <button class="btn secondary" id="edit" type="button">✏️ ${!r?'Remplir ma fiche':persoOk?'Modifier ma fiche':'Compléter mon personnage'}</button>
           </div>`;
           const pk=pane.querySelector('#peek');
@@ -1226,7 +1255,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
               clearTimeout(window.__hideT);window.__hideT=setTimeout(()=>{if(document.body.contains(sec))hide()},30000);
             };
           }
-          const fl0=pane.querySelector('#flip'); fl0.onclick=()=>fl0.classList.toggle('open');
+          const fl0=pane.querySelector('#flip'); fl0.onclick=()=>{if(!fl0.classList.contains('lockedM'))fl0.classList.toggle('open')};
 
     pane.querySelector('#edit').onclick=()=>{el.remove();form(c,!!r)};
     if(savedCodes()[c.id]){pane.querySelector('.pane').insertAdjacentHTML('beforeend','<button class="smallBtn" id="forget" type="button" style="align-self:center">🔑 Oublier mon code sur ce téléphone</button>');
@@ -1314,6 +1343,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
           pane.querySelectorAll('button.gcard').forEach(b=>b.onclick=()=>fiche(byId[b.dataset.id]));
         }
       }
+      window.__rerender=()=>render();
       tabs.forEach(t=>t.onclick=()=>{cur=t.dataset.t;render();root.scrollTo({top:0,behavior:'smooth'})});
       render();
       unsub=()=>{if(cur==='candidats'||cur==='classement'||cur==='demasque')render()}; listeners.add(unsub);
