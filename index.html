@@ -478,6 +478,35 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 .gNote{margin:0;font-size:12px;color:var(--mist);max-width:26em}
 .gBig{width:100%;max-width:380px;font-size:20px;padding:20px 22px;animation:fade .6s ease 1.4s backwards,pulse 1.6s ease-in-out 2s infinite}
 .gFallback{display:flex;flex-direction:column;gap:12px;align-items:center;width:100%}
+.gStep{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:12px;animation:fade .4s}
+.gStep h2{font-size:22px;line-height:1.2;margin:0}
+.gNum{margin:0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--neon-soft);font-weight:600}
+.gMock{width:100%}
+.mock{display:flex;align-items:center;justify-content:space-around;gap:6px;padding:10px 12px;border-radius:18px;background:rgba(245,240,248,.95);color:#1a1a1a;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.mUrl{flex:1;font-size:12px;color:#444;background:#e6e1ea;border-radius:10px;padding:8px 10px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mIco{min-width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#1f6fe5;border-radius:10px}
+.mIco svg{width:22px;height:22px}
+.hl{box-shadow:0 0 0 3px #ff2e88,0 0 18px #ff2e88;animation:pulse 1.1s ease-in-out infinite;background:rgba(255,46,136,.12)}
+.mSheet{border-radius:18px;background:rgba(245,240,248,.97);color:#1a1a1a;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5);text-align:left}
+.mRow{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid #ddd;font-size:15px}
+.mRow svg{width:20px;height:20px;color:#1a1a1a}
+.mRow.hl{border-radius:12px;margin:6px;border-bottom:0;font-weight:700}
+.mRow.dim{color:#888}
+.mHead{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #ddd;font-size:14px}
+.mHead span{color:#1f6fe5}
+.hlTxt{font-weight:700;padding:4px 8px;border-radius:8px;box-shadow:0 0 0 3px #ff2e88,0 0 16px #ff2e88;animation:pulse 1.1s infinite}
+.mApp{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.mApp img{width:52px;height:52px;border-radius:12px}
+.gNav{display:flex;align-items:center;gap:10px;width:100%;max-width:380px}
+.gNav .btn{flex:1;padding:14px 16px;font-size:16px}
+.gNav .dots{margin:0}
+.gPoint{position:fixed;z-index:31;font-size:46px;color:#fff;text-shadow:0 0 16px #ff2e88,0 0 4px #ff2e88;pointer-events:none}
+.gPoint.none{display:none}
+.gPoint.bc{left:50%;bottom:calc(4px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);animation:bob 1s ease-in-out infinite}
+.gPoint.br{right:14px;bottom:calc(4px + env(safe-area-inset-bottom,0px));animation:bobR 1s ease-in-out infinite}
+.gPoint.tr{right:14px;top:calc(4px + env(safe-area-inset-top,0px));animation:bobUp 1s ease-in-out infinite}
+@keyframes bobR{50%{transform:translateY(8px)}}
+@keyframes bobUp{50%{transform:translateY(-8px)}}
 .gSkip{font:inherit;font-size:13px;color:var(--mist);background:none;border:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:8px;margin-top:4px}
 .gArrow{position:fixed;left:50%;bottom:calc(6px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font-size:34px;color:var(--ice);text-shadow:0 0 14px var(--neon);animation:bob 1.2s ease-in-out infinite}
 @keyframes bob{50%{transform:translate(-50%,8px)}}
@@ -1393,13 +1422,37 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     if(inApp){
       body=`<ol class="gSteps"><li><span>1</span><p>Tu es dans le navigateur d'une autre appli. Appuie sur <b>⋯</b> ou <b>⋮</b> en haut à droite</p></li><li><span>2</span><p>Choisis <b>« Ouvrir dans ${isIOS?'Safari':'le navigateur'} »</b></p></li><li><span>3</span><p>L'écran d'installation s'affichera de nouveau, suis les étapes</p></li></ol>`;
     } else if(isIOS){
-      body=`<p class="gLead">3 taps et l'app est sur ton écran d'accueil, en plein écran, comme une vraie app.</p>
-      <ol class="gSteps">
-        <li><span>1</span><p>Appuie sur le bouton <b class="ico">${shareIco}</b> <b>Partager</b>.<small>Dans Safari : en bas de l'écran, au milieu (ou touche d'abord <b class="ico">${dots}</b> à côté de l'adresse). Dans Chrome : en haut, à droite de l'adresse.</small></p></li>
-        <li><span>2</span><p>Fais défiler la liste et choisis <b class="ico">${plusIco}</b> <b>« Sur l'écran d'accueil »</b>.<small>Tu ne le vois pas ? Appuie d'abord sur <b>« En voir plus »</b> ou <b>« Modifier les actions »</b>, il est dedans.</small></p></li>
-        <li><span>3</span><p>Appuie sur <b>Ajouter</b> en haut à droite.<small>L'icône <b>Le Chalet</b> apparaît sur ton écran d'accueil. Ouvre l'app depuis cette icône.</small></p></li>
-      </ol>
-      <p class="gNote">Tu as un iPhone avec un iOS ancien et l'option n'apparaît pas ? Ouvre le lien dans <b>Safari</b>, c'est là que ça marche toujours.</p>`;
+      const chromeIOS=/CriOS/.test(ua); const sv=+((ua.match(/Version\/(\d+)/)||[])[1]||0); const ios26=!chromeIOS&&sv>=26;
+      const bar=(hl)=> chromeIOS
+        ? `<div class="mock top"><div class="mUrl">aazarmusic-png.github.io</div><div class="mIco ${hl==='share'?'hl':''}">${shareIco}</div></div>`
+        : ios26
+        ? `<div class="mock"><div class="mIco">‹</div><div class="mUrl">aazarmusic-png.github.io</div><div class="mIco ${hl==='dots'?'hl':''}">${dots}</div></div>`
+        : `<div class="mock"><div class="mIco">‹</div><div class="mIco">›</div><div class="mIco ${hl==='share'?'hl':''}">${shareIco}</div><div class="mIco">📖</div><div class="mIco">⧉</div></div>`;
+      const sheet=`<div class="mSheet"><div class="mRow">Copier</div><div class="mRow">Ajouter aux favoris</div><div class="mRow hl">${plusIco} Sur l'écran d'accueil</div><div class="mRow dim">Voir plus…</div></div>`;
+      const add=`<div class="mSheet"><div class="mHead"><span>Annuler</span><b>Écran d'accueil</b><span class="hlTxt">Ajouter</span></div><div class="mApp"><img src="img/icon-180.png" alt=""><span>Le Chalet</span></div></div>`;
+      const ST = ios26 ? [
+        ['Touche les ••• en bas à droite de Safari', bar('dots'), 'br'],
+        ['Touche « Partager »', `<div class="mSheet"><div class="mRow hl">${shareIco} Partager</div><div class="mRow dim">Nouvel onglet</div><div class="mRow dim">Signets</div></div>`, ''],
+        ['Choisis « Sur l\'écran d\'accueil ». Pas dans la liste ? Touche « Voir plus »', sheet, ''],
+        ['Touche « Ajouter » en haut à droite. C\'est fini 🔥', add, '']
+      ] : chromeIOS ? [
+        ['Touche le bouton Partager, en haut à droite à côté de l\'adresse', bar('share'), 'tr'],
+        ['Choisis « Sur l\'écran d\'accueil ». Pas dans la liste ? Touche « Voir plus »', sheet, ''],
+        ['Touche « Ajouter » en haut à droite. C\'est fini 🔥', add, '']
+      ] : [
+        ['Touche le bouton Partager, en bas au milieu de Safari', bar('share'), 'bc'],
+        ['Descends un peu et choisis « Sur l\'écran d\'accueil »', sheet, ''],
+        ['Touche « Ajouter » en haut à droite. C\'est fini 🔥', add, '']
+      ];
+      body=`<div class="gStep" id="gStep"></div><div class="gNav"><button class="smallBtn" id="gPrev" type="button">←</button><div class="dots" id="gDots">${ST.map(()=>'<i></i>').join('')}</div><button class="btn primary" id="gNext" type="button">Suivant</button></div><div class="gPoint" id="gPoint" aria-hidden="true"></div>`;
+      queueMicrotask(()=>{
+        let k=0; const box=document.getElementById('gStep'), pv=document.getElementById('gPrev'), nx=document.getElementById('gNext'), pt=document.getElementById('gPoint'), dd=[...document.querySelectorAll('#gDots i')];
+        const go=n=>{k=Math.max(0,Math.min(ST.length-1,n)); const [t,m,pos]=ST[k];
+          box.innerHTML=`<p class="gNum">Étape ${k+1} sur ${ST.length}</p><h2>${t}</h2><div class="gMock">${m}</div>`;
+          dd.forEach((d,x)=>d.classList.toggle('on',x===k)); pv.style.visibility=k?'visible':'hidden'; nx.textContent=k===ST.length-1?'Revoir depuis le début':'Suivant';
+          pt.className='gPoint '+(pos||'none'); pt.textContent=pos==='tr'?'↑':'↓'; };
+        pv.onclick=()=>go(k-1); nx.onclick=()=>go(k===ST.length-1?0:k+1); go(0);
+      });
     } else {
       body=`<button class="btn primary gBig" id="instBtn" type="button">📲 Installe l'app en cliquant ici</button>
       <div class="gFallback" id="gFallback" hidden><p class="gLead">Ton navigateur ne propose pas l'installation en un clic. Pas grave, en 2 taps :</p>
