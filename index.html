@@ -478,6 +478,12 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 .gNote{margin:0;font-size:12px;color:var(--mist);max-width:26em}
 .gBig{width:100%;max-width:380px;font-size:20px;padding:20px 22px;animation:fade .6s ease 1.4s backwards,pulse 1.6s ease-in-out 2s infinite}
 .gFallback{display:flex;flex-direction:column;gap:12px;align-items:center;width:100%}
+.gAll{list-style:none;margin:0;padding:0;width:100%;max-width:380px;display:flex;flex-direction:column;gap:14px;animation:fade .6s ease 1.4s backwards}
+.gAll li{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:18px;background:var(--glass-strong);border:1px solid rgba(255,122,184,.35);text-align:left}
+.gT{display:flex;align-items:center;gap:12px}
+.gT span{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:900;font-style:italic;background:var(--neon);box-shadow:0 0 12px var(--neon)}
+.gT p{margin:0;font-size:15px;font-weight:600;line-height:1.35}
+.gAll .mSheet .mRow{padding:10px 14px;font-size:14px}
 .gStep{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:12px;animation:fade .4s}
 .gStep h2{font-size:22px;line-height:1.2;margin:0}
 .gNum{margin:0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--neon-soft);font-weight:600}
@@ -1451,15 +1457,9 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
         ['Descends un peu et choisis « Sur l\'écran d\'accueil »', sheet, ''],
         ['Touche « Ajouter » en haut à droite. C\'est fini 🔥', add, '']
       ];
-      body=`<div class="gStep" id="gStep"></div><div class="gNav"><button class="smallBtn" id="gPrev" type="button">←</button><div class="dots" id="gDots">${ST.map(()=>'<i></i>').join('')}</div><button class="btn primary" id="gNext" type="button">Suivant</button></div><div class="gPoint" id="gPoint" aria-hidden="true"></div>`;
-      queueMicrotask(()=>{
-        let k=0; const box=document.getElementById('gStep'), pv=document.getElementById('gPrev'), nx=document.getElementById('gNext'), pt=document.getElementById('gPoint'), dd=[...document.querySelectorAll('#gDots i')];
-        const go=n=>{k=Math.max(0,Math.min(ST.length-1,n)); const [t,m,pos]=ST[k];
-          box.innerHTML=`<p class="gNum">Étape ${k+1} sur ${ST.length}</p><h2>${t}</h2><div class="gMock">${m}</div>`;
-          dd.forEach((d,x)=>d.classList.toggle('on',x===k)); pv.style.visibility=k?'visible':'hidden'; nx.textContent=k===ST.length-1?'Revoir depuis le début':'Suivant';
-          pt.className='gPoint '+(pos||'none'); pt.textContent=pos==='tr'?'↑':'↓'; };
-        pv.onclick=()=>go(k-1); nx.onclick=()=>go(k===ST.length-1?0:k+1); go(0);
-      });
+      body=`<p class="gLead">Suis ces ${ST.length} étapes dans l'ordre, tout est sur cette page.</p>
+      <ol class="gAll">${ST.map(([t,m],k)=>`<li><div class="gT"><span>${k+1}</span><p>${t}</p></div><div class="gMock">${m}</div></li>`).join('')}</ol>
+      <div class="gPoint ${ST[0][2]||'none'}" aria-hidden="true">${ST[0][2]==='tr'?'↑':'↓'}</div>`;
     } else {
       body=`<button class="btn primary gBig" id="instBtn" type="button">📲 Installe l'app en cliquant ici</button>
       <div class="gFallback" id="gFallback" hidden><p class="gLead">Ton navigateur ne propose pas l'installation en un clic. Pas grave, en 2 taps :</p>
