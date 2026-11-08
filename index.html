@@ -783,9 +783,8 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
 
   /* ----- form (2 étapes : personnage public, puis secret caché) ----- */
   const PERSO=[
-    {k:'facette',l:'Ma facette × 100',ph:'Je suis le / la…'},
-    {k:'reve',l:'Mon rêve démesuré',ph:'Dans ma tête, je vais…'},
-    {k:'phrase',l:'Ma phrase signature',ph:'La phrase que je sors toute la soirée…'}
+    {k:'facette',l:'Mon personnage',ph:'Je suis le / la…'},
+    {k:'reve',l:'Mon rêve démesuré',ph:'Dans ma tête, je vais…'}
   ];
   function form(c,edit,startStep){
     const cur=Object.assign({},regs[c.id]||{});
@@ -973,7 +972,6 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     const el=document.createElement('div'); el.id='fiche';
     el.innerHTML=`<div class="ficheIn"><div class="top"><span></span><button class="back" type="button" id="fx">Fermer</button></div>
       <img class="mycard" src="${img(x)}" alt="Carte de ${esc(x.name)}">
-      ${r.phrase?`<p class="quote">« ${esc(r.phrase)} »</p>`:''}
       <div class="panel fields">${PERSO.filter(p=>p.k!=='phrase').map(p=>`<div><b>${p.l}</b><span style="color:var(--ice)">${r[p.k]?esc(r[p.k]):'—'}</span></div>`).join('')}
         <div style="border:0"><b>Prix de son indice</b><span style="color:var(--ice)">${esc(r.prix||'—')}</span></div></div>
       <p class="note">🤫 Son secret ? À toi de le découvrir.</p></div>`;
@@ -1270,7 +1268,6 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
           const persoOk=r&&PERSO.every(p=>r[p.k]);
           pane.innerHTML=`<div class="pane"><div><p class="eyebrow">Salut ${esc(c.name)}</p><h1>Mon compte</h1></div>
             <img class="mycard" src="${img(c)}" alt="Carte de ${esc(c.name)}">
-            ${r&&r.phrase?`<p class="quote">« ${esc(r.phrase)} »</p>`:''}
             <div class="panel fields"><p class="eyebrow" style="margin-bottom:4px">Mon personnage · visible par tous</p>
               ${PERSO.filter(p=>p.k!=='phrase').map(p=>`<div><b>${p.l}</b><span style="color:var(--ice)">${r&&r[p.k]?esc(r[p.k]):'À compléter'}</span></div>`).join('')}
               <div style="border:0"><b>Prix de mon indice</b><span style="color:var(--ice)">${r?esc(r.prix):'—'}</span></div></div>
