@@ -163,6 +163,7 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;resize:vertical;font:
 .front img{width:70%}
 .front small{font-size:13px;color:var(--mist)}
 .backF{transform:rotateY(180deg);background:linear-gradient(160deg,#2a0518,#12020c)}
+.backF p.mM{font-size:16px}.backF p.mL{font-size:14px;line-height:1.38}
 .backF p{font-size:19px;font-weight:500;line-height:1.4;margin:0;text-wrap:balance}
 .backF .eyebrow{color:var(--neon)}
 .test{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);border:1px dashed rgba(255,255,255,.3);border-radius:999px;padding:4px 10px}
@@ -571,23 +572,23 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
   /* ================== CONFIG ================== */
   const SALT='chalet35';
   const CANDIDATS=[
-    {id:'mimi',   name:'Mimi',   f:true,  h:'09cfc3f302b90472e76b57ff9aa191ab0afab4a908b21e28b5f63b02e9bcfebe', mission:"Fais dire le mot « chalet » à 3 personnes différentes sans qu'elles se rendent compte que c'était ta mission."},
-    {id:'manu',   name:'Manu',   f:false, h:'df17c720367fe4a17834cf0e4ebed3fcc721ac9e6846824efa37e3bb271af6d9', mission:"Réussis à faire porter tes lunettes de soleil à quelqu'un pendant au moins 5 minutes."},
-    {id:'duv',    name:'Duv',     f:false, h:'6d6d6f617c3a6a67743fad66325de73e77d4d703ccd9bc85725d5734cb5f2eb8', mission:"Lance un toast surprise avant minuit et fais lever tout le chalet."},
-    {id:'alex',   name:'Alex',   f:false, v:2, h:'ba91a8ec56b1563d10bb88f43c9e19737c5ab85e5f5b72038a3f60e5ad095b65', mission:"Fais deviner ton plat préféré à quelqu'un sans jamais le nommer."},
-    {id:'kiki',   name:'Kiki',   f:false, h:'2032e992596d356fbe20a8ef48fd4288386a8eebd3c068960165e6c2013c729a', mission:"Glisse le mot « baguette » dans 5 conversations différentes."},
-    {id:'vince',  name:'Vince',  f:false, h:'fc75acfda527626ce9949fcf168e3ddb0f678b4e1a0917d2c7cb39a5fdeffcf2', mission:"Convaincs quelqu'un d'échanger un accessoire avec toi pour le reste de la soirée."},
-    {id:'charles',name:'Charles',f:false, h:'5fad2b4f1453c4ceb16c90c7ef22a7bbf46a9e10e4afc6c0ee9e859f213127c5', mission:"Fais un compliment différent à chaque candidate de la soirée sans te faire griller."},
-    {id:'caro',   name:'Caro',   f:true,  h:'b86c86f8d2bd2c149095061da72d26637e62417c3077bfafbecbde23a1de2ba2', mission:"Fais croire à 2 personnes que tu as un deuxième secret."},
-    {id:'ricky',  name:'Ricky',  f:false, h:'a7af398dcc4fc9854fbf644ad9993242b40acf87ff53c3e845c6a6f1909a51e9', mission:"Fais applaudir tout le salon au moins une fois sans dire pourquoi."},
-    {id:'juju',   name:'Juju',   f:true,  v:2,  h:'1b61625418b773251f70fa150389de4bdf523fc092136473cd802383947976f9', mission:"Obtiens un indice de quelqu'un sans jamais payer son prix."},
-    {id:'laeti',  name:'Laëti',  f:true,  h:'ed6a0ddd65483373dc73339c510260714d9e26aa8bbba6a5242ab761fc966e24', mission:"Fais porter un toast en ton honneur par 3 personnes différentes avant minuit."},
-    {id:'sam',    name:'Sam',    f:false, h:'49b17de39814dea47fb44fbc90a434c68158c57a4ad01c79ec63e2f20b8f60dc', mission:"Fais trinquer tout le monde à ta santé au moins une fois dans la soirée."},
-    {id:'estelle',name:'Estelle',f:true,  h:'b2feed4823cb3e883ccd50c1eaab5eb65d12d1bfa25715e7f5f37345f52dd0ed', mission:"Fais avouer à quelqu'un son pire souvenir de soirée."},
-    {id:'marie',  name:'Marie',  f:true,  h:'00abcf820d7b705a905bedb956079c0562720c1fd47875318585df6b7f983fe7', mission:"Fais chanter le refrain d'une chanson à tout le salon."},
-    {id:'yann',   name:'Yann',   f:false, h:'79115614f59e4c061200c4292c1c9abd671fb7c9bdcd8a42f11b42aaee8e9f93', mission:"Fais danser 3 personnes en même temps sur un slow sans qu'elles comprennent pourquoi."}
+    {id:'mimi',   name:'Mimi',   f:true,  h:'09cfc3f302b90472e76b57ff9aa191ab0afab4a908b21e28b5f63b02e9bcfebe', mission:"Tu dois annoncer très sérieusement à 3 personnes que tu vas lancer un compte OnlyFans consacré uniquement à tes pieds, et leur demander des conseils pour fixer tes tarifs."},
+    {id:'manu',   name:'Manu',   f:false, h:'df17c720367fe4a17834cf0e4ebed3fcc721ac9e6846824efa37e3bb271af6d9', mission:"Tu dois faire croire à Charles que tu vas ouvrir un bar à filles en Belgique."},
+    {id:'duv',    name:'Duv',     f:false, h:'6d6d6f617c3a6a67743fad66325de73e77d4d703ccd9bc85725d5734cb5f2eb8', mission:""},
+    {id:'alex',   name:'Alex',   f:false, v:2, h:'ba91a8ec56b1563d10bb88f43c9e19737c5ab85e5f5b72038a3f60e5ad095b65', mission:"Tu dois convaincre deux garçons du chalet de poser avec toi pour un calendrier façon Dieux du Stade, avec des accessoires pour cacher les parties intimes. Objectif : au moins 3 photos dignes d'un calendrier de vestiaire, prises dans le confessionnal."},
+    {id:'kiki',   name:'Kiki',   f:false, h:'2032e992596d356fbe20a8ef48fd4288386a8eebd3c068960165e6c2013c729a', mission:"Julia va porter des faux tatouages, dont un tribal en bas du dos. Tout le monde va rigoler, sauf… toi ! Tu trouves ça cool, tu trouves que ça revient à la mode et tu veux t'en faire un très vite. Au moins un candidat doit y croire."},
+    {id:'vince',  name:'Vince',  f:false, h:'fc75acfda527626ce9949fcf168e3ddb0f678b4e1a0917d2c7cb39a5fdeffcf2', mission:"Tu dois lancer au moins 3 toasts généraux. Les raisons de tes toasts sont gênantes, voire nulles : ça crée un malaise… et tout le monde boit un shot."},
+    {id:'charles',name:'Charles',f:false, h:'5fad2b4f1453c4ceb16c90c7ef22a7bbf46a9e10e4afc6c0ee9e859f213127c5', mission:"En mode confession, tu dois faire croire à Mimi que ton déguisement de ce soir n'est pas juste pour l'occasion : c'est quelque chose que tu fais parfois à Genève, avec des amis…"},
+    {id:'caro',   name:'Caro',   f:true,  h:'b86c86f8d2bd2c149095061da72d26637e62417c3077bfafbecbde23a1de2ba2', mission:"Tu dois organiser une battle d'aura entre Richard et Charles."},
+    {id:'ricky',  name:'Ricky',  f:false, h:'a7af398dcc4fc9854fbf644ad9993242b40acf87ff53c3e845c6a6f1909a51e9', mission:"Tu dois faire croire à Estelle que ta teinture blonde, c'est pour une opération d'infiltration un peu particulière. Tu es gêné d'en parler, mais comme tu es bourré, tu lâches : « Vas-y, je m'en fous, je te fais confiance. » Ton groupe et toi devez démanteler un réseau de prostitution dans un club BDSM… et tu vas devoir y entrer en harnais, en cuir et compagnie."},
+    {id:'juju',   name:'Juju',   f:true,  v:2,  h:'1b61625418b773251f70fa150389de4bdf523fc092136473cd802383947976f9', mission:"Tu es la relou de la maison : personne ne doit poser son verre sans sous-verre, même s'il y a une nappe. Tu insistes jusqu'à ce que quelqu'un craque et te dise que tu lui casses les couilles."},
+    {id:'laeti',  name:'Laëti',  f:true,  h:'ed6a0ddd65483373dc73339c510260714d9e26aa8bbba6a5242ab761fc966e24', mission:""},
+    {id:'sam',    name:'Sam',    f:false, h:'49b17de39814dea47fb44fbc90a434c68158c57a4ad01c79ec63e2f20b8f60dc', mission:"La mission secrète de Manu : convaincre Charles qu'il va ouvrir un bar à filles en Belgique. Ta mission : t'incruster dans la discussion, faire genre que tu y crois à fond et être super sérieux, en mode tu veux investir. Ton père a déjà des bars comme ça, et tu sais comment gérer les bordels. Manu doit y croire."},
+    {id:'estelle',name:'Estelle',f:true,  h:'b2feed4823cb3e883ccd50c1eaab5eb65d12d1bfa25715e7f5f37345f52dd0ed', mission:"Tu dois convaincre 3 candidats hommes de passer entre tes mains pour un make-up qui va « glow up » leur visage. Julia t'aidera à trouver du maquillage. Sauf que ton make-up est super douteux, voire gênant… Toi, tu es convaincue que c'est top, et tu le prends un peu mal quand on remet ton talent en question."},
+    {id:'marie',  name:'Marie',  f:true,  h:'00abcf820d7b705a905bedb956079c0562720c1fd47875318585df6b7f983fe7', mission:"Tu dois induire 3 personnes en erreur en leur balançant de FAUX secrets sur 3 candidats."},
+    {id:'yann',   name:'Yann',   f:false, h:'79115614f59e4c061200c4292c1c9abd671fb7c9bdcd8a42f11b42aaee8e9f93', mission:"Ta mission : changer le C de « PUCE » sur la fesse de Juju en T. Richard est de mèche avec toi : il t'aidera à trouver le T à coller et te le ramènera. Bien sûr, elle ne doit pas s'en apercevoir. Prends une photo avant et une photo après. (PS : tu as le feu vert de Richard.)"}
   ];
-  const MISSIONS_TEST=true;
+  const MISSIONS_TEST=false;
   const PRIX=['🥃 Un shot','🎭 Un gage','👕 Un vêtement en moins','💃 Une danse','🎤 Une chanson'];
   const byId=Object.fromEntries(CANDIDATS.map(c=>[c.id,c]));
   const img=c=>'img/c-'+c.id+(c.v?'-'+c.v:'')+'.webp';
@@ -1001,7 +1002,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     return `<button class="flip${open?' open':''}" id="flip" type="button" aria-label="Retourner la carte mission">
       <div class="flipIn">
         <div class="face front"><img src="img/eye.webp" alt=""><p class="eyebrow">Mission secrète</p><small>Touche pour révéler</small></div>
-        <div class="face backF"><p class="eyebrow">Mission de ${esc(c.name)}</p><p>${esc(c.mission)}</p>${MISSIONS_TEST?'<span class="test">Mission test</span>':''}</div>
+        <div class="face backF"><p class="eyebrow">Mission de ${esc(c.name)}</p><p class="${(c.mission||'').length>220?'mL':(c.mission||'').length>120?'mM':''}">${c.mission?esc(c.mission):'La Voix prépare ta mission… Patience 🤫'}</p>${MISSIONS_TEST?'<span class="test">Mission test</span>':''}</div>
       </div></button>`;
   }
   function missionReveal(c){
@@ -1237,13 +1238,13 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     }
   }
   listeners.add(checkAlerts);
-  const MSEEN='chalet_mission_seen_v2';
+  const MSEEN='chalet_mission_seen_v3';
   function missionAlert(){
     if(!me||!missionOpen()||document.getElementById('alert')||document.getElementById('mAlert'))return;
     let seenM=false;try{seenM=localStorage.getItem(MSEEN+'_'+me)==='1'}catch(e){}
-    if(seenM||!regs[me])return;
+    if(seenM||!regs[me]||!byId[me].mission)return;
     const c=byId[me]; const el=document.createElement('div'); el.id='mAlert'; el.className='mAlert';
-    el.innerHTML=`<div class="siren">🚨</div><p class="eyebrow">La Voix</p><h1>Ta mission secrète est arrivée !</h1>${missionCard(c,false)}<p class="note">Touche la carte pour la découvrir. Ne la montre à personne 🤫</p><button class="btn secondary" id="mOk" type="button">Compris, chut</button>`;
+    el.innerHTML=`<div class="siren">🚨</div><p class="eyebrow">La Voix</p><h1>Ta nouvelle mission secrète est arrivée !</h1>${missionCard(c,false)}<p class="note">Touche la carte pour la découvrir. Ne la montre à personne 🤫</p><button class="btn secondary" id="mOk" type="button">Compris, chut</button>`;
     app.appendChild(el); if(navigator.vibrate)try{navigator.vibrate([80,60,80])}catch(e){}
     const fl=el.querySelector('#flip'); fl.onclick=()=>{if(!fl.classList.contains('open')){fl.classList.add('open');burst(.5,.5,60)}};
     el.querySelector('#mOk').onclick=()=>{try{localStorage.setItem(MSEEN+'_'+me,'1')}catch(e){};el.remove()};
