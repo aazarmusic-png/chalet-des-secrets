@@ -938,7 +938,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
       <div class="step"><b>01</b><strong>Le Mur des Secrets</strong><span>Une fois tout le monde inscrit, la Voix publie tous les secrets, anonymement et mélangés.</span></div>
       <div class="step"><b>02</b><strong>Enquête</strong><span>Ton but : découvrir à qui appartient chaque secret. Questionne, observe, bluffe.</span></div>
       <div class="step"><b>03</b><strong>Les indices ont un prix</strong><span>Demande autant d'indices que tu veux, à qui tu veux. Chaque indice se paie au prix fixé par la personne : un shot, un gage, une danse… Un indice met sur la piste, il ne donne jamais le secret.</span></div>
-      <div class="step"><b>04</b><strong>Démasquer</strong><span>Dans l'app, tu proposes « ce secret appartient à… ». La personne visée confirme sur son téléphone. Bonne réponse : +1 point. Seulement 2 essais par secret : paie tes indices avant de tenter ta chance.</span></div>
+      <div class="step"><b>04</b><strong>Démasquer</strong><span>Dans l'app, tu proposes « ce secret appartient à… ». La personne visée confirme sur son téléphone. Bonne réponse : +1 point. Essais illimités, mais chaque erreur te coûte un shot 🥃</span></div>
       <div class="step"><b>05</b><strong>Ta mission secrète</strong><span>Accomplis-la pendant la soirée sans te faire griller.</span></div>`,
     ()=>`<p class="eyebrow">05 / À toi de jouer</p><img src="img/logo-full.webp" alt="Le Chalet des Secrets" style="width:min(80vw,360px);align-self:center;margin:10px 0"><h1 style="text-align:center">Remplis ta fiche casting, et rejoins le Chalet des Secrets !</h1>`
   ];
@@ -1125,7 +1125,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
     return ids.map((id,i)=>({owner:id,suit:SUITS[id]||SUIT_ORDER[i%4],text:regs[id].secret,n:i+1}));
   }
   function foundBy(owner){const t=tents.find(t=>t.secretOf===owner&&t.status==='ok');return t?t.from:null}
-  function triesLeft(from,owner){return 2-tents.filter(t=>t.from===from&&t.secretOf===owner&&(t.status==='ko'||t.status==='pending')).length}
+  function triesLeft(from,owner){return 99}
   function cardHTML(d,opts){
     opts=opts||{}; const red=d.suit==='♥'||d.suit==='♦'; const f=foundBy(d.owner);
     return `<${opts.tag||'button'} class="pcard${red?' red':''}${opts.sel?' sel':''}${f?' found':''}" ${opts.tag==='div'?'':'type="button"'} data-o="${d.owner}" ${opts.disabled?'disabled':''}>
@@ -1167,7 +1167,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
         <button class="picker${q?' on':''}" id="pQui" type="button"><h3>Qui ?</h3>${q?`<div class="slotImg"><img src="${img(q)}" alt=""></div><small>${esc(q.name)}</small>`:'<div class="slotImg"><div class="pback" style="aspect-ratio:941/1672"><span style="font-size:40px">?</span></div></div><small>Choisis un candidat</small>'}</button>
         <button class="picker${sd?' on':''}" id="pSec" type="button"><h3>Secret ?</h3><div class="slotImg">${sd?cardHTML(sd,{tag:'div'}):'<div class="pback"><img src="img/eye.webp" alt=""></div>'}</div><small>${sd?'Carte S'+sd.suit:'Choisis un secret'}</small></button>
       </div>
-      ${sel.secret?`<p class="essais">${pend?'⏳ Une tentative est déjà en attente sur ce secret.':`🎯 Essais restants sur ce secret : <b>${left}</b>/2`}</p>`:''}
+      ${sel.secret?`<p class="essais">${pend?'⏳ Une tentative est déjà en attente sur ce secret.':`🎯 Essais illimités : propose autant que tu veux (mais chaque erreur = un shot 🥃)`}</p>`:''}
       <button class="btn primary" id="go" type="button" ${q&&sd&&!pend?'':'disabled'}>J'ai trouvé son secret !</button>
       <div><p class="eyebrow" style="margin-bottom:10px">Le paquet · ${deck.length} secrets</p>
         <div class="deck">${deck.map(d=>{const own=d.owner===c.id, f=!!foundBy(d.owner), out=triesLeft(c.id,d.owner)<=0;return cardHTML(d,{sel:d.owner===sel.secret,mine:own,disabled:own||f||out})}).join('')}</div></div>
@@ -1231,7 +1231,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
       markNotified(res.id); const tg=byId[res.target], ok=res.status==='ok', left=triesLeft(me,res.secretOf);
       const el=document.createElement('div'); el.id='alert';
       el.innerHTML=`<div class="siren">${ok?'🎉':'💥'}</div><h1>${ok?'Bien joué !':'Raté !'}</h1>
-        <p class="lead" style="text-align:center">${ok?`${esc(tg.name)} est démasqué${tg.f?'e':''}. +1 point au classement.`:`Ce n'était pas le secret de ${esc(tg.name)}. ${left>0?`Il te reste ${left} essai sur ce secret.`:'Plus aucun essai sur ce secret.'}`}</p>
+        <p class="lead" style="text-align:center">${ok?`${esc(tg.name)} est démasqué${tg.f?'e':''}. +1 point au classement.`:`Ce n'était pas le secret de ${esc(tg.name)}. Tu peux retenter quand tu veux… après ton shot 🥃`}</p>
         <button class="btn primary" id="aClose" type="button">${ok?'Voir le classement':'Je continue'}</button>`;
       app.appendChild(el); if(ok&&!reduce)burst(.5,.4,90);
       el.querySelector('#aClose').onclick=()=>{el.remove();setTimeout(checkAlerts,200)};
@@ -1349,7 +1349,7 @@ button.gcard{border:0;padding:0;cursor:pointer;background:none;color:inherit;fon
             <div class="rooms">${ROOMS.map((r,k)=>`<button class="roomCard" type="button" data-k="${k}"><img src="${r.img()}" alt="" loading="lazy"><span>${esc(r.title||r.alt.split(' pour')[0])}</span></button>`).join('')}</div></div>`;
           pane.querySelectorAll('.roomCard').forEach(b=>b.onclick=()=>tour({start:+b.dataset.k}));
         } else if(cur==='jeu'){
-          const B=[['🎭',"Viens en <b>toi × 1000</b>"],['🤫',"Garde ton <b>secret</b>"],['🧱',"Les secrets sont publiés <b>anonymement</b>"],['🔍',"Trouve <b>à qui</b> appartient chaque secret"],['💰',"Indices illimités, mais <b>chacun se paie</b>"],['🎯',"<b>2 essais</b> par secret, pas plus"],['✅',"Bonne réponse validée = <b>+1 point</b>"],['🕵️',"Réussis ta <b>mission</b> sans te faire griller"],['🏆',"Le plus de secrets trouvés = <b>grand gagnant</b>"]];
+          const B=[['🎭',"Viens en <b>toi × 1000</b>"],['🤫',"Garde ton <b>secret</b>"],['🧱',"Les secrets sont publiés <b>anonymement</b>"],['🔍',"Trouve <b>à qui</b> appartient chaque secret"],['💰',"Indices illimités, mais <b>chacun se paie</b>"],['🎯',"Essais <b>illimités</b>, chaque erreur = un shot"],['✅',"Bonne réponse validée = <b>+1 point</b>"],['🕵️',"Réussis ta <b>mission</b> sans te faire griller"],['🏆',"Le plus de secrets trouvés = <b>grand gagnant</b>"]];
           pane.innerHTML=`<div class="pane"><div><p class="eyebrow">Les règles</p><h1>Le Jeu</h1></div>
             <ul class="bullets">${B.map(([e,t],k)=>`<li style="animation-delay:${.1+k*.12}s"><span>${e}</span><p>${t}</p></li>`).join('')}</ul>
             <button class="smallBtn" id="play" type="button" style="align-self:center">▶ Revoir le guide complet</button></div>`;
